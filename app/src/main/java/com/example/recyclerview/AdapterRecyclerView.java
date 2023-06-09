@@ -1,5 +1,6 @@
 package com.example.recyclerview;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,25 @@ public class AdapterRecyclerView  extends RecyclerView.Adapter<AdapterRecyclerVi
         text_phim.setText(dataItem.get(position).getName());
         text_nam.setText(dataItem.get(position).getYear());
         image_poster.setImageResource(dataItem.get(position).getPoster());
+
+        // Xử lý sự kiện nhấn vào item
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tạo intent
+                Intent intent = new Intent(v.getContext(), MovieDetailsActivity.class);
+
+                // Truyền dữ liệu của phim vào intent
+                intent.putExtra("name", dataItem.get(position).getName());
+                intent.putExtra("year", dataItem.get(position).getYear());
+                intent.putExtra("poster", dataItem.get(position).getPoster());
+
+                // Khởi chạy activity MovieDetailsActivity
+                v.getContext().startActivity(intent);
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
